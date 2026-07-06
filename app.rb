@@ -72,11 +72,21 @@ class WordGuesserApp < Sinatra::Base
 
   get '/win' do
     ### YOUR CODE HERE ###
+    @game = session[:game]
+    condition = @game.check_win_or_lose()
+    if condition != :win
+      redirect '/show'
+    end
     erb :win # You may change/remove this line
   end
 
   get '/lose' do
     ### YOUR CODE HERE ###
+    @game = session[:game]
+    condition = @game.check_win_or_lose()
+    if condition != :lose
+      redirect '/show'
+    end
     erb :lose # You may change/remove this line
   end
 end
