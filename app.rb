@@ -32,6 +32,7 @@ class WordGuesserApp < Sinatra::Base
     # NOTE: don't change previous line - it's needed by autograder!
 
     @game = WordGuesserGame.new(word)
+    session[:game] = @game
     redirect '/show'
   end
 
@@ -73,6 +74,9 @@ class WordGuesserApp < Sinatra::Base
   get '/win' do
     ### YOUR CODE HERE ###
     @game = session[:game]
+    if @game.nil?
+      redirect '/new'
+    end
     condition = @game.check_win_or_lose()
     if condition != :win
       redirect '/show'
